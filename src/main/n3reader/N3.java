@@ -46,6 +46,9 @@ public class N3 {
 		return diffTripleIds;
 	}
 
+	/**
+	 * TODO 内部でdiffを使っているため，トリプル数が多いと遅くなる
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -61,6 +64,10 @@ public class N3 {
 		if (n3.getTripleCount() != this.getTripleCount())
 			return false;
 		if (!this.getUri().equals(n3.getUri()))
+			return false;
+
+		ArrayList<Integer> diffTripleIds = this.diff(n3);
+		if (diffTripleIds.size() != 0)
 			return false;
 
 		return true;
