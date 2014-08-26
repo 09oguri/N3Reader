@@ -57,11 +57,18 @@ public class Format {
 		result = result.replaceAll(" +", " ");
 		result = result.replaceAll("^ +| +$", "");
 
+		result = result.replaceAll(" *[.,;]$", "");
+
 		return result;
 	}
 
 	public static ArrayList<String> splitBySpace(String line) {
 		ArrayList<String> results = new ArrayList<String>(4);
+
+		if (line.equals("")) {
+			return results;
+		}
+
 		String s = line;
 
 		int length = s.length();

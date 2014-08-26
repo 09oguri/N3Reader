@@ -42,7 +42,7 @@ public class N3Reader {
 					continue;
 				}
 
-				if (length == 4 && elements.get(0).equals("@prefix")) {
+				if (length == 3 && elements.get(0).equals("@prefix")) {
 					String key = elements.get(1);
 					String value = elements.get(2).replaceAll("^<|>$", "");
 					uris.put(key, value);
@@ -51,14 +51,14 @@ public class N3Reader {
 					continue;
 				}
 
-				if (length == 4) {
+				if (length == 3) {
 					s = Format.format(elements.get(0));
 					p = Format.format(elements.get(1));
 					o = Format.format(elements.get(2));
-				} else if (length == 3) {
+				} else if (length == 2) {
 					p = Format.format(elements.get(0));
 					o = Format.format(elements.get(1));
-				} else if (length == 2) {
+				} else if (length == 1) {
 					o = Format.format(elements.get(0));
 				} else {
 					System.err.println(": [Warn] Cannot parse this line. : "
