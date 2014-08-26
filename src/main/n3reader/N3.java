@@ -56,6 +56,8 @@ public class N3 {
 			return false;
 		if (n3.getTripleCount() != this.getTripleCount())
 			return false;
+		if (!this.getUri().equals(n3.getUri()))
+			return false;
 
 		return true;
 	}
@@ -83,7 +85,7 @@ public class N3 {
 	@Override
 	public int hashCode() {
 		int h = 1;
-		h = h * 31 + tripleCount;
+		h = h * 31 + uri.hashCode();
 		return h;
 	}
 
