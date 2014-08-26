@@ -1,41 +1,45 @@
 package main.n3reader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class N3 {
 	private long lastModified;
-	private int tripleCount;
-	private ArrayList<Triple> triples;
+	private int tripleId;
+	private HashMap<Integer, Triple> triples;
 	final private String uri;
 
 	public N3(String uri, long lastModified) {
 		this.lastModified = lastModified;
-		this.tripleCount = 0;
-		this.triples = new ArrayList<Triple>();
+		this.tripleId = 0;
+		this.triples = new HashMap<Integer, Triple>();
 		this.uri = uri;
 	}
 
 	public void addTriple(Triple triple) {
-		boolean isAdded = triples.add(triple);
-		if (isAdded) {
-			tripleCount++;
-			setLastModified(System.currentTimeMillis());
+		Triple prevTriple = triples.put(tripleId, triple);
+		if (prevTriple == null) {
+			tripleId++;
 		}
+		setLastModified(System.currentTimeMillis());
 	}
 
 	public ArrayList<Integer> diff(N3 target) {
 		ArrayList<Integer> diffTripleIds = new ArrayList<Integer>();
 
-		Iterator<Triple> thisIter = triples.iterator();
-		Iterator<Triple> targetIter = target.getTriples().iterator();
+		Iterator<Map.Entry<Integer, Triple>> thisIter = triples.entrySet()
+				.iterator();
+		Iterator<Map.Entry<Integer, Triple>> targetIter = target.getTriples()
+				.entrySet().iterator();
 
 		while (thisIter.hasNext() && targetIter.hasNext()) {
-			Triple thisTriple = thisIter.next();
-			Triple targetTriple = targetIter.next();
+			Map.Entry<Integer, Triple> thisEntry = thisIter.next();
+			Map.Entry<Integer, Triple> targetEntry = targetIter.next();
 
-			if (!thisTriple.equals(targetTriple)) {
-				diffTripleIds.add(thisTriple.getTripleId());
+			if (!thisEntry.equals(targetEntry)) {
+				diffTripleIds.add(thisEntry.getKey());
 			}
 		}
 
@@ -70,12 +74,12 @@ public class N3 {
 		return triples.get(tripleId);
 	}
 
-	public ArrayList<Triple> getTriples() {
+	public HashMap<Integer, Triple> getTriples() {
 		return triples;
 	}
 
 	public int getTripleCount() {
-		return tripleCount;
+		return tripleId;
 	}
 
 	public String getUri() {

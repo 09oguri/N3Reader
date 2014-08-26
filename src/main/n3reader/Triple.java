@@ -1,13 +1,11 @@
 package main.n3reader;
 
 public class Triple {
-	final private int tripleId;
 	final private String subject;
 	final private String predicate;
 	final private String object;
 
-	public Triple(int id, String s, String p, String o) {
-		this.tripleId = id;
+	public Triple(String s, String p, String o) {
 		this.subject = s;
 		this.predicate = p;
 		this.object = o;
@@ -23,8 +21,6 @@ public class Triple {
 			return false;
 
 		Triple triple = (Triple) obj;
-		if (triple.getTripleId() != this.getTripleId())
-			return false;
 		if (!this.getSubject().equals(triple.getSubject()))
 			return false;
 		if (!this.getPredicate().equals(triple.getPredicate()))
@@ -33,10 +29,6 @@ public class Triple {
 			return false;
 
 		return true;
-	}
-
-	public int getTripleId() {
-		return tripleId;
 	}
 
 	public String getSubject() {
@@ -54,7 +46,7 @@ public class Triple {
 	@Override
 	public int hashCode() {
 		int h = 1;
-		h = h * 31 + tripleId;
+		h = h * 31 + subject.hashCode();
 		return h;
 	}
 }
