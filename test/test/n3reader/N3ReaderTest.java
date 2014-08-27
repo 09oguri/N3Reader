@@ -33,7 +33,7 @@ public class N3ReaderTest {
         String expected = "http://ja.dbpedia.org/resource/高森町_(長野県)";
 
         N3 n3 = n3reader.readN3();
-        String actual = n3.getTriple(5).getSubject();
+        String actual = n3.getTriple(1).getSubject();
 
         assertThat(actual, is(expected));
     }
@@ -43,7 +43,7 @@ public class N3ReaderTest {
         String expected = "http://dbpedia.org/ontology/Species";
 
         N3 n3 = n3reader.readN3();
-        String actual = n3.getTriple(12).getObject();
+        String actual = n3.getTriple(18).getObject();
 
         assertThat(actual, is(expected));
     }
