@@ -39,7 +39,7 @@ public class Format {
         String result = s;
 
         result = result.replaceAll("^<|>$", "");
-        result = result.replaceAll("(@.*)$", "");
+        result = result.replaceAll("(\"@.*)$", "");
         result = result.replaceAll("^\"|\"$", "");
 
         if (result.contains("\\u")) {
