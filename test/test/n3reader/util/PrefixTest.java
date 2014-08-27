@@ -10,16 +10,16 @@ import main.n3reader.util.Prefix;
 import org.junit.Test;
 
 public class PrefixTest {
-	@Test
-	public void notOmitTest() {
-		String expected = "http://ja.dbpedia.org/resource/ソメイヨシノ";
+    @Test
+    public void notOmitTest() {
+        String expected = "http://ja.dbpedia.org/resource/ソメイヨシノ";
 
-		String encoded = "dbpedia-ja:ソメイヨシノ";
-		HashMap<String, String> uris = new HashMap<String, String>();
-		uris.put("dbpedia-ja:", "http://ja.dbpedia.org/resource/");
+        String encoded = "dbpedia-ja:ソメイヨシノ";
+        HashMap<String, String> uris = new HashMap<String, String>();
+        uris.put("dbpedia-ja:", "http://ja.dbpedia.org/resource/");
 
-		String actual = Prefix.notOmit(encoded, uris);
+        String actual = Prefix.notOmit(encoded, uris);
 
-		assertThat(actual, is(expected));
-	}
+        assertThat(actual, is(expected));
+    }
 }
