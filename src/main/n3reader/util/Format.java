@@ -23,9 +23,10 @@ public class Format {
             }
 
             if (i + 5 < length) {
-                c = (char) Integer.parseInt(s.substring(i + 2, i + 6), 16);
-                i = i + 5;
+                String unicodeStr = s.substring(i + 2, i + 6);
+                c = (char) Integer.parseInt(unicodeStr, 16);
                 sb.append(c);
+                i = i + 5;
                 continue;
             }
 
@@ -38,8 +39,8 @@ public class Format {
     public static String format(String s) {
         String result = s;
 
-        result = result.replaceAll("^<|>$", "");
         result = result.replaceAll("(\"@.*)$", "");
+        result = result.replaceAll("^<|>$", "");
         result = result.replaceAll("^\"|\"$", "");
 
         if (result.contains("\\u")) {
@@ -70,7 +71,6 @@ public class Format {
         }
 
         String s = line;
-
         int length = s.length();
         StringBuffer sb = new StringBuffer(length);
 
@@ -83,25 +83,29 @@ public class Format {
                 int next = s.indexOf('"', i + 1);
                 if (next < 0) {
                     sb.append(c);
-                } else {
-                    for (; i < next + 1; i++) {
-                        c = s.charAt(i);
-                        sb.append(c);
-                    }
-                    i--;
+                    break;
                 }
+
+                for (; i < next + 1; i++) {
+                    c = s.charAt(i);
+                    sb.append(c);
+                }
+                i--;
+
                 break;
             case '<':
                 next = s.indexOf('>', i + 1);
                 if (next < 0) {
                     sb.append(c);
-                } else {
-                    for (; i < next + 1; i++) {
-                        c = s.charAt(i);
-                        sb.append(c);
-                    }
-                    i--;
+                    break;
                 }
+
+                for (; i < next + 1; i++) {
+                    c = s.charAt(i);
+                    sb.append(c);
+                }
+                i--;
+
                 break;
             case ' ':
                 String result = sb.toString();
@@ -114,7 +118,9 @@ public class Format {
             }
         }
 
-        results.add(sb.toString());
+        if (sb.length() != 0) {
+            results.add(sb.toString());
+        }
 
         return results;
     }
