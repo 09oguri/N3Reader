@@ -12,6 +12,7 @@ import main.n3reader.N3;
 import main.n3reader.N3Reader;
 
 public class N3ReaderTest {
+    // http://ja.dbpedia.org/data/ソメイヨシノ.n3
     private static final String FILEPATH = "./somei-yoshino.n3";
     private N3Reader n3reader;
 
