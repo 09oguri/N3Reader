@@ -46,7 +46,8 @@ public class Triple {
     @Override
     public int hashCode() {
         int h = 1;
-        h = h * 31 + subject.hashCode();
+        h = h * 31 + subject.hashCode() + predicate.hashCode()
+                + object.hashCode();
         return h;
     }
 }
